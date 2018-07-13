@@ -52,7 +52,7 @@ function ConvertHandler() {
     const input = ["gal", "l", "mi", "km", "lbs", "kg"];
     const expect = ["l", "gal", "km", "mi", "kg", "lbs"];
 
-    result = expect[input.indexOf(initUnit)];
+    result = expect[input.indexOf(initUnit.toLowerCase())];
     
     return result;
   };
@@ -62,7 +62,7 @@ function ConvertHandler() {
     const input = ["gal", "l", "mi", "km", "lbs", "kg"];
     const expect = ["gallons", "liters", "miles", "kilometers", "pounds", "kilograms"];
 
-    result = expect[input.indexOf(unit)];
+    result = expect[input.indexOf(unit.toLowerCase())];
 
     return result;
   };
@@ -73,8 +73,8 @@ function ConvertHandler() {
     const miToKm = 1.60934;
     const metric = ["l", "kg", "km"];
     const imperial = ["gal", "lbs", "mi"];
-    const mIndex = metric.indexOf(initUnit);
-    const iIndex = imperial.indexOf(initUnit);
+    const mIndex = metric.indexOf(initUnit.toLowerCase());
+    const iIndex = imperial.indexOf(initUnit.toLowerCase());
     let index, conv, result;
 
     index = (mIndex !== -1) ? mIndex : iIndex;
