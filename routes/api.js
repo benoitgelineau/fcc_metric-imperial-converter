@@ -20,28 +20,36 @@ module.exports = function (app) {
       var input = req.query.input;
       var initNum = convertHandler.getNum(input);
       var initUnit = convertHandler.getUnit(input);
-      var returnNum = convertHandler.convert(initNum, initUnit);
-      var returnUnit = convertHandler.getReturnUnit(initUnit);
-      var toString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
-      
-      if (input) {
-        if (initNum === 'Invalid Number' && initUnit === 'Invalid Unit') {
-          res.send('Invalid number and unit')
-        } else if (initNum === "Invalid Number") {
-          res.send("Invalid number");
-        } else if (initUnit === "Invalid Unit") {
-          res.send("Invalid unit");
+      let message;
 
-        } else {
-          res.json({
+      if (!input) return false;
+
+      if (initNum === "Invalid Number" || initUnit === "Invalid Unit") {
+
+        if (initNum === "Invalid Number" && initUnit === "Invalid Unit") {
+          message = "Invalid Number and Unit";
+        } else if (initNum === "Invalid Number") {
+          message = "Invalid Number";
+        } else if (initUnit === "Invalid Unit") {
+          message = "Invalid Unit";
+        }
+
+        res.send(message);
+
+      } else {
+        var returnNum = convertHandler.convert(initNum, initUnit);
+        var returnUnit = convertHandler.getReturnUnit(initUnit);
+        var toString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
+
+        res.json(
+          {
             initNum: initNum,
             initUnit: initUnit,
             returnNum: returnNum,
             returnUnit: returnUnit,
             string: toString
-          });
-        }
+          }
+        );
       }
     });
-    
 };
